@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-export const useJSON = ({ initialState, onBeforeEnd, url }) => {
-  const [result, setResult] = useState(initialState);
+export const useJSON = (url, onBeforeEnd, initialState) => {
+  const [result, setResult] = useState(null);
 
   useEffect(() => {
     if (url) {

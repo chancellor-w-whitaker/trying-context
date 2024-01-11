@@ -37,9 +37,9 @@ const useProvideGlobally = () => {
   );
 
   const onBeforeEnd = useCallback((data, setResult) => {
-    const allColumns = returnColsWithValuesAndType(data);
+    const columns = returnColsWithValuesAndType(data);
 
-    const textColumns = allColumns.filter(({ type }) => type === "string");
+    const textColumns = columns.filter(({ type }) => type === "string");
 
     const fieldLists = Object.fromEntries(
       textColumns.map(({ values, field }) => [field, values])
@@ -51,19 +51,22 @@ const useProvideGlobally = () => {
 
     setFieldFilters(initialFieldFilters);
 
-    const result = { fieldLists, data };
+    // setResult(() => {
+    //   return { fieldLists, data };
+    // });
 
-    setResult(result);
+    setResult({ fieldLists, data });
   }, []);
 
-  const url = `data/${fileName}.json`;
-
   const initialState = { fieldLists: {}, data: [] };
+
+  const url = `data/${fileName}.json`;
 
   const { fieldLists, data } = useJSON({ initialState, onBeforeEnd, url });
 
   return {
     onDropdownItemClick,
+    setFieldFilters,
     onFileChange,
     fieldFilters,
     fieldLists,

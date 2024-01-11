@@ -11,6 +11,10 @@ export const AppContextProvider = ({ children }) => {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
+// const conditionallyInitFilters = (initialState, setState) => {
+//   setState((currentState) => (!currentState ? initialState : currentState));
+// };
+
 const useProvideGlobally = () => {
   const [fileName, setFileName] = useState(fileNames[0]);
   const [fieldFilters, setFieldFilters] = useState(null);
@@ -37,9 +41,9 @@ const useProvideGlobally = () => {
   );
 
   const onBeforeEnd = useCallback((data, setResult) => {
-    const allColumns = returnColsWithValuesAndType(data);
+    const columns = returnColsWithValuesAndType(data);
 
-    const textColumns = allColumns.filter(({ type }) => type === "string");
+    const textColumns = columns.filter(({ type }) => type === "string");
 
     const fieldLists = Object.fromEntries(
       textColumns.map(({ values, field }) => [field, values])
@@ -49,21 +53,30 @@ const useProvideGlobally = () => {
       textColumns.map(({ values, field }) => [field, new Set(values)])
     );
 
+    // conditionallyInitFilters(initialFieldFilters, setFieldFilters);
+
     setFieldFilters(initialFieldFilters);
 
-    const result = { fieldLists, data };
+    // setResult(() => {
+    //   return { fieldLists, data };
+    // });
 
-    setResult(result);
+    setResult({ fieldLists, data });
   }, []);
 
   const url = `data/${fileName}.json`;
 
   const initialState = { fieldLists: {}, data: [] };
 
-  const { fieldLists, data } = useJSON({ initialState, onBeforeEnd, url });
+  const result = useJSON({ initialState, onBeforeEnd, url });
+
+  const data = result ? result.data : [];
+
+  const fieldLists = result ? result.fieldLists : {};
 
   return {
     onDropdownItemClick,
+    setFieldFilters,
     onFileChange,
     fieldFilters,
     fieldLists,

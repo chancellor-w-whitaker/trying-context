@@ -8,7 +8,20 @@ import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
 import { useAppContext } from "./hooks/useAppContext";
 import { Container } from "./components/Container";
 import { fileNames } from "./constants/fileNames";
+import { Table } from "./components/Table";
 import "./App.css";
+
+// https://learn.microsoft.com/en-us/azure/developer/github/deploy-with-visual-studio
+
+/*
+  prevent scrollbar page layout shift
+    - write to index.css
+*/
+/*
+  how to handle filters & lists being remembered?
+    - write to useProvideGlobally in AppContextProvider.jsx
+    - should you change state structure of checklist?
+*/
 
 const App = () => {
   useBodyBgVariant("primary-subtle");
@@ -25,6 +38,7 @@ const App = () => {
     <>
       <Container>
         <div className="d-flex flex-column gap-4">
+          <Table></Table>
           <ListGroup className="shadow-sm">
             {fileNames.map((thisFileName) => (
               <ListGroupItem

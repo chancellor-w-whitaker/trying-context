@@ -8,6 +8,7 @@ import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
 import { useAppContext } from "./hooks/useAppContext";
 import { Container } from "./components/Container";
 import { fileNames } from "./constants/fileNames";
+import { Table } from "./components/Table";
 import "./App.css";
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
     <>
       <Container>
         <div className="d-flex flex-column gap-4">
+          <Table></Table>
           <ListGroup className="shadow-sm">
             {fileNames.map((thisFileName) => (
               <ListGroupItem
