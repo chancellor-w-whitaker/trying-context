@@ -1,9 +1,9 @@
 import { memo } from "react";
 
-export const ListGroup = ({ children }) => {
+export const ListGroup = ({ className, ...rest }) => {
   return (
     <>
-      <div className="list-group">{children}</div>
+      <div className={`list-group ${className}`.trimEnd()} {...rest}></div>
     </>
   );
 };

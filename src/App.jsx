@@ -8,6 +8,7 @@ import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
 import { useAppContext } from "./hooks/useAppContext";
 import { Container } from "./components/Container";
 import { fileNames } from "./constants/fileNames";
+import { Table } from "./components/Table";
 import "./App.css";
 
 /*
@@ -29,16 +30,14 @@ const App = () => {
     fieldFilters,
     fieldLists,
     fileName,
-    data,
   } = useAppContext();
-
-  console.log(data, fieldFilters);
 
   return (
     <>
       <Container>
         <div className="d-flex flex-column gap-4">
-          <ListGroup>
+          <Table></Table>
+          <ListGroup className="shadow-sm">
             {fileNames.map((thisFileName) => (
               <ListGroupItem
                 checked={thisFileName === fileName}
@@ -73,7 +72,10 @@ const App = () => {
                   </>
                 }
                 trigger={
-                  <DropdownTrigger data-bs-auto-close="outside">
+                  <DropdownTrigger
+                    data-bs-auto-close="outside"
+                    className="shadow-sm"
+                  >
                     {field}
                   </DropdownTrigger>
                 }

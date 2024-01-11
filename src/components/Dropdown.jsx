@@ -20,15 +20,15 @@ export const Dropdown = ({
   );
 };
 
-export const DropdownTrigger = memo((props) => {
+export const DropdownTrigger = memo(({ className, ...rest }) => {
   return (
     <>
       <button
-        className="btn btn-secondary dropdown-toggle"
+        className={`btn btn-secondary dropdown-toggle ${className}`.trimEnd()}
         data-bs-toggle="dropdown"
         aria-expanded="false"
         type="button"
-        {...props}
+        {...rest}
       ></button>
     </>
   );

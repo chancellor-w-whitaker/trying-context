@@ -1,4 +1,4 @@
-import { startTransition, useCallback, useState } from "react";
+import { startTransition, useCallback, useState, useMemo } from "react";
 
 import { AppContext } from "./contexts/AppContext";
 import { fileNames } from "./constants/fileNames";
@@ -33,7 +33,7 @@ const loopDataAndDeriveColProperties = (data) => {
   return fieldToColumn;
 };
 
-const returnColsWithValsAndType = (data) => {
+const returnColsWithValuesAndType = (data) => {
   const fieldToColumn = loopDataAndDeriveColProperties(data);
 
   return Object.entries(fieldToColumn).map(([field, { values, types }]) => ({
@@ -45,9 +45,9 @@ const returnColsWithValsAndType = (data) => {
   }));
 };
 
-const conditionallyInitFilters = (initialState, setState) => {
-  setState((currentState) => (!currentState ? initialState : currentState));
-};
+// const conditionallyInitFilters = (initialState, setState) => {
+//   setState((currentState) => (!currentState ? initialState : currentState));
+// };
 
 const useProvideGlobally = () => {
   const [fileName, setFileName] = useState(fileNames[0]);
@@ -57,26 +57,6 @@ const useProvideGlobally = () => {
     (e) => startTransition(() => setFileName(e.target.value)),
     [setFileName]
   );
-
-  const onBeforeEnd = useCallback((data, setResult) => {
-    const columns = returnColsWithValsAndType(data);
-
-    const textColumns = columns.filter(({ type }) => type === "string");
-
-    const fieldLists = Object.fromEntries(
-      textColumns.map(({ values, field }) => [field, values])
-    );
-
-    const initialFieldFilters = Object.fromEntries(
-      textColumns.map(({ values, field }) => [field, new Set(values)])
-    );
-
-    // conditionallyInitFilters(initialFieldFilters, setFieldFilters);
-
-    setFieldFilters(initialFieldFilters);
-
-    setResult({ fieldLists, data });
-  }, []);
 
   const onDropdownItemClick = useCallback(
     (field, value) =>
@@ -94,15 +74,50 @@ const useProvideGlobally = () => {
     []
   );
 
-  const result = useJSON(`data/${fileName}.json`, onBeforeEnd);
+  const onBeforeFetchEnd = useCallback((data, setResult) => {
+    const columns = returnColsWithValuesAndType(data);
+
+    const textColumns = columns.filter(({ type }) => type === "string");
+
+    const fieldLists = Object.fromEntries(
+      textColumns.map(({ values, field }) => [field, values])
+    );
+
+    const initialFieldFilters = Object.fromEntries(
+      textColumns.map(({ values, field }) => [field, new Set(values)])
+    );
+
+    // conditionallyInitFilters(initialFieldFilters, setFieldFilters);
+
+    setFieldFilters(initialFieldFilters);
+
+    // setResult(() => {
+    //   return { fieldLists, data };
+    // });
+
+    setResult({ fieldLists, data });
+  }, []);
+
+  const result = useJSON(`data/${fileName}.json`, onBeforeFetchEnd);
+
+  const data = result ? result.data : [];
+
+  const fieldLists = result ? result.fieldLists : {};
+
+  const columnDefs = useMemo(
+    () =>
+      data.length > 0 ? Object.keys(data[0]).map((field) => ({ field })) : [],
+    [data]
+  );
 
   return {
-    fieldLists: result ? result.fieldLists : {},
-    data: result ? result.data : [],
     onDropdownItemClick,
     setFieldFilters,
     onFileChange,
     fieldFilters,
+    fieldLists,
+    columnDefs,
     fileName,
+    data,
   };
 };
