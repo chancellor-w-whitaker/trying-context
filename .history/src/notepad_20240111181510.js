@@ -22,7 +22,3 @@
     - don't need to create a custom hook
     - if done so, json result can just return data instead of an object with x number of properties
 */
-
-/*
-  consider chad's settings & template data viz app idea
-*/

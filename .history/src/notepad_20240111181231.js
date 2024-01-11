@@ -18,11 +18,5 @@
             - where each field points to 
                 - a list of all items (array)
                 - and then a list of checked items (set)
-        - what do you pass to custom hook?
-    - don't need to create a custom hook
-    - if done so, json result can just return data instead of an object with x number of properties
-*/
-
-/*
-  consider chad's settings & template data viz app idea
+        - what do you pass to custom hook?        
 */

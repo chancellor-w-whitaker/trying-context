@@ -13,7 +13,7 @@ export const AppContextProvider = ({ children }) => {
 
 const useProvideGlobally = () => {
   const [fileName, setFileName] = useState(fileNames[0]);
-  //   const [columnFilters, setColumnFilters] = useState({});
+  const [columnFilters, setColumnFilters] = useState({});
   const [fieldFilters, setFieldFilters] = useState(null);
 
   const onFileChange = useCallback(

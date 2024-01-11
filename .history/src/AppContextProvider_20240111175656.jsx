@@ -13,7 +13,7 @@ export const AppContextProvider = ({ children }) => {
 
 const useProvideGlobally = () => {
   const [fileName, setFileName] = useState(fileNames[0]);
-  //   const [columnFilters, setColumnFilters] = useState({});
+  const [columnFilters, setColumnFilters] = useState({});
   const [fieldFilters, setFieldFilters] = useState(null);
 
   const onFileChange = useCallback(
@@ -41,15 +41,6 @@ const useProvideGlobally = () => {
     const allColumns = returnColsWithValuesAndType(data);
 
     const textColumns = allColumns.filter(({ type }) => type === "string");
-
-    const colFilters = Object.fromEntries(
-      textColumns.map(({ values, field }) => [
-        field,
-        { active: new Set(values), list: values },
-      ])
-    );
-
-    console.log(colFilters);
 
     const fieldLists = Object.fromEntries(
       textColumns.map(({ values, field }) => [field, values])
