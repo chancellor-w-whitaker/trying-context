@@ -42,7 +42,11 @@ const App = () => {
                     <>
                       {options.map((value) => (
                         <MemoableDropdownItem
-                          className={checked.has(value) ? "active" : ""}
+                          className={
+                            fieldChecklists[field].checked.has(value)
+                              ? "active"
+                              : ""
+                          }
                           onClick={onDropdownItemClick}
                           field={field}
                           value={value}

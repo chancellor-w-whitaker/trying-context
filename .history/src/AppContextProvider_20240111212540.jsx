@@ -53,7 +53,7 @@ const useProvideGlobally = () => {
     // checklist: { type, list }
     // field (string)
     // type (string) ("checkbox" or "radio")
-    // list: [{}, {}, {}] (or what about an object that maps value to item state? that might solve indexing issues deriving from managing arrays in state)
+    // list: [{}, {}, {}] (or what about an object that maps value to item state? that might solve indexing issues deriving from arrays)
     // list element: { value, checked, disabled (or relevant, or just something to describe relevance to dataset) }
 
     // in the future, may need something to describe relevance to filtered dataset

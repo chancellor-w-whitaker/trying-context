@@ -49,18 +49,6 @@ const useProvideGlobally = () => {
   const onBeforeEnd = useCallback((json, setResult) => {
     const columns = returnColsWithValuesAndType(json);
 
-    // object that maps key (field) to checklist
-    // checklist: { type, list }
-    // field (string)
-    // type (string) ("checkbox" or "radio")
-    // list: [{}, {}, {}] (or what about an object that maps value to item state? that might solve indexing issues deriving from managing arrays in state)
-    // list element: { value, checked, disabled (or relevant, or just something to describe relevance to dataset) }
-
-    // in the future, may need something to describe relevance to filtered dataset
-    // remember, this operation doesn't have to be run until you close (or maybe even open) a checklist
-    // and what about sorting a list by relevance when opening a checklist? should this be a stateful or visual operation?
-    // making it stateful would probably make updating the state of the item easier because the item's index in the list wouldn't change
-
     const fieldChecklists = Object.fromEntries(
       columns
         .filter(({ type }) => type === "string")

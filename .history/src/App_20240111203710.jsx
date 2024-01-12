@@ -35,36 +35,36 @@ const App = () => {
             ))}
           </ListGroup>
           <div className="d-flex flex-wrap gap-3">
-            {Object.entries(fieldChecklists).map(
-              ([field, { options, checked }]) => (
-                <Dropdown
-                  menuContent={
-                    <>
-                      {options.map((value) => (
-                        <MemoableDropdownItem
-                          className={checked.has(value) ? "active" : ""}
-                          onClick={onDropdownItemClick}
-                          field={field}
-                          value={value}
-                          key={value}
-                        >
-                          {value}
-                        </MemoableDropdownItem>
-                      ))}
-                    </>
-                  }
-                  trigger={
-                    <DropdownTrigger
-                      data-bs-auto-close="outside"
-                      className="shadow-sm"
-                    >
-                      {field}
-                    </DropdownTrigger>
-                  }
-                  key={field}
-                ></Dropdown>
-              )
-            )}
+            {Object.entries(fieldLists).map(([field, list]) => (
+              <Dropdown
+                menuContent={
+                  <>
+                    {list.map((value) => (
+                      <MemoableDropdownItem
+                        className={
+                          fieldFilters[field]?.has(value) ? "active" : ""
+                        }
+                        onClick={onDropdownItemClick}
+                        field={field}
+                        value={value}
+                        key={value}
+                      >
+                        {value}
+                      </MemoableDropdownItem>
+                    ))}
+                  </>
+                }
+                trigger={
+                  <DropdownTrigger
+                    data-bs-auto-close="outside"
+                    className="shadow-sm"
+                  >
+                    {field}
+                  </DropdownTrigger>
+                }
+                key={field}
+              ></Dropdown>
+            ))}
           </div>
         </div>
       </Container>
