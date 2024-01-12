@@ -9,11 +9,10 @@ export const Dropdown = ({
     </>
   ),
   trigger = <DropdownTrigger>Dropdown</DropdownTrigger>,
-  className = "",
 }) => {
   return (
     <>
-      <div className={`dropdown ${className}`.trimEnd()}>
+      <div className="dropdown">
         {trigger}
         <ul className="dropdown-menu">{menuContent}</ul>
       </div>

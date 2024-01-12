@@ -66,7 +66,7 @@ const App = () => {
                       {toTitleCase(field)}
                     </DropdownTrigger>
                   }
-                  className="col"
+                  className="flex-fill"
                   key={field}
                 ></Dropdown>
               )

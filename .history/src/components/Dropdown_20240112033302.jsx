@@ -9,11 +9,10 @@ export const Dropdown = ({
     </>
   ),
   trigger = <DropdownTrigger>Dropdown</DropdownTrigger>,
-  className = "",
 }) => {
   return (
     <>
-      <div className={`dropdown ${className}`.trimEnd()}>
+      <div className="dropdown">
         {trigger}
         <ul className="dropdown-menu">{menuContent}</ul>
       </div>
@@ -51,14 +50,16 @@ export const DropdownItem = ({ className = "", ...rest }) => {
   );
 };
 
-export const DropdownItemParent = memo(({ onClick, field, value, ...rest }) => {
-  const onItemClick = () => onClick(field, value);
+export const MemoableDropdownItem = memo(
+  ({ onClick, field, value, ...rest }) => {
+    const onItemClick = () => onClick(field, value);
 
-  return (
-    <>
-      <DropdownItem onClick={onItemClick} {...rest}></DropdownItem>
-    </>
-  );
-});
+    return (
+      <>
+        <DropdownItem onClick={onItemClick} {...rest}></DropdownItem>
+      </>
+    );
+  }
+);
 
-DropdownItemParent.displayName = "DropdownItemParent";
+MemoableDropdownItem.displayName = "MemoableDropdownItem";

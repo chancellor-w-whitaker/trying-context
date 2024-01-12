@@ -60,13 +60,12 @@ const App = () => {
                   trigger={
                     <DropdownTrigger
                       data-bs-auto-close="outside"
-                      className="shadow-sm w-100"
                       disabled={!fieldRelevance}
+                      className="shadow-sm"
                     >
                       {toTitleCase(field)}
                     </DropdownTrigger>
                   }
-                  className="col"
                   key={field}
                 ></Dropdown>
               )

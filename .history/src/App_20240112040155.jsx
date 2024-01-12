@@ -59,14 +59,13 @@ const App = () => {
                   }
                   trigger={
                     <DropdownTrigger
+                      className="shadow-sm flex-fill"
                       data-bs-auto-close="outside"
-                      className="shadow-sm w-100"
                       disabled={!fieldRelevance}
                     >
                       {toTitleCase(field)}
                     </DropdownTrigger>
                   }
-                  className="col"
                   key={field}
                 ></Dropdown>
               )

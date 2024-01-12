@@ -1,8 +1,6 @@
 import { startTransition, useCallback, useState } from "react";
 
-import { comparePreviousColumnFilters } from "./functions/comparePreviousColumnFilters";
 import { returnColsWithValuesAndType } from "./functions/returnColsWithValuesAndType";
-import { buildRelevantColumnFilters } from "./functions/buildRelevantColumnFilters";
 import { AppContext } from "./contexts/AppContext";
 import { fileNames } from "./constants/fileNames";
 import { useJSON } from "./hooks/useJSON";
@@ -11,6 +9,48 @@ export const AppContextProvider = ({ children }) => {
   const value = useProvideGlobally();
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
+
+const buildRelevantColumnFilters = (columns) => {
+  return Object.fromEntries(
+    columns
+      .filter(({ type }) => type === "string")
+      .map(({ values, field }) => [
+        field,
+        {
+          checklist: Object.fromEntries(
+            values.map((value) => [value, { relevant: true, checked: true }])
+          ),
+          relevant: true,
+        },
+      ])
+  );
+};
+
+const comparePreviousColumnFilters = (previousState, nextState) => {
+  Object.entries(previousState).forEach(([field, { checklist }]) => {
+    if (!(field in nextState)) {
+      nextState[field] = {
+        checklist: Object.fromEntries(
+          Object.entries(checklist).map(([value, { checked }]) => [
+            value,
+            { relevant: false, checked },
+          ])
+        ),
+        relevant: false,
+      };
+    } else {
+      Object.entries(checklist).forEach(([value, { checked }]) => {
+        const nextChecklist = nextState[field].checklist;
+
+        if (value in nextChecklist) {
+          nextChecklist[value].checked = checked;
+        } else {
+          nextChecklist[value] = { relevant: false, checked };
+        }
+      });
+    }
+  });
 };
 
 const useProvideGlobally = () => {

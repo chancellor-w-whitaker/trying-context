@@ -1,12 +1,11 @@
 import {
-  DropdownItemParent,
+  MemoableDropdownItem,
   DropdownTrigger,
   Dropdown,
 } from "./components/Dropdown";
 import { ListGroupItem, ListGroup } from "./components/ListGroup";
 import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
 import { useAppContext } from "./hooks/useAppContext";
-import { toTitleCase } from "./functions/toTitleCase";
 import { Container } from "./components/Container";
 import { fileNames } from "./constants/fileNames";
 import "./App.css";
@@ -36,37 +35,32 @@ const App = () => {
             ))}
           </ListGroup>
           <div className="d-flex flex-wrap gap-3">
-            {Object.entries(columnFilters).map(
-              ([field, { relevant: fieldRelevance, checklist }]) => (
+            {Object.entries(fieldChecklists).map(
+              ([field, { options, checked }]) => (
                 <Dropdown
                   menuContent={
                     <>
-                      {Object.entries(checklist).map(
-                        ([value, { relevant: valueRelevance, checked }]) => (
-                          <DropdownItemParent
-                            className={checked ? "active" : ""}
-                            onClick={onColumnFilterItemClick}
-                            disabled={!valueRelevance}
-                            field={field}
-                            value={value}
-                            key={value}
-                          >
-                            {value}
-                          </DropdownItemParent>
-                        )
-                      )}
+                      {options.map((value) => (
+                        <MemoableDropdownItem
+                          className={checked.has(value) ? "active" : ""}
+                          onClick={onDropdownItemClick}
+                          field={field}
+                          value={value}
+                          key={value}
+                        >
+                          {value}
+                        </MemoableDropdownItem>
+                      ))}
                     </>
                   }
                   trigger={
                     <DropdownTrigger
                       data-bs-auto-close="outside"
-                      className="shadow-sm w-100"
-                      disabled={!fieldRelevance}
+                      className="shadow-sm"
                     >
-                      {toTitleCase(field)}
+                      {field}
                     </DropdownTrigger>
                   }
-                  className="col"
                   key={field}
                 ></Dropdown>
               )

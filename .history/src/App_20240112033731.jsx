@@ -1,5 +1,5 @@
 import {
-  DropdownItemParent,
+  MemoableDropdownItem,
   DropdownTrigger,
   Dropdown,
 } from "./components/Dropdown";
@@ -43,7 +43,7 @@ const App = () => {
                     <>
                       {Object.entries(checklist).map(
                         ([value, { relevant: valueRelevance, checked }]) => (
-                          <DropdownItemParent
+                          <MemoableDropdownItem
                             className={checked ? "active" : ""}
                             onClick={onColumnFilterItemClick}
                             disabled={!valueRelevance}
@@ -52,7 +52,7 @@ const App = () => {
                             key={value}
                           >
                             {value}
-                          </DropdownItemParent>
+                          </MemoableDropdownItem>
                         )
                       )}
                     </>
@@ -60,13 +60,12 @@ const App = () => {
                   trigger={
                     <DropdownTrigger
                       data-bs-auto-close="outside"
-                      className="shadow-sm w-100"
                       disabled={!fieldRelevance}
+                      className="shadow-sm"
                     >
                       {toTitleCase(field)}
                     </DropdownTrigger>
                   }
-                  className="col"
                   key={field}
                 ></Dropdown>
               )

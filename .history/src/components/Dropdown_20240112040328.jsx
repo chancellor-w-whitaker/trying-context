@@ -9,7 +9,6 @@ export const Dropdown = ({
     </>
   ),
   trigger = <DropdownTrigger>Dropdown</DropdownTrigger>,
-  className = "",
 }) => {
   return (
     <>

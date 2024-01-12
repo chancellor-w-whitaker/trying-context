@@ -1,6 +1,5 @@
 import { startTransition, useCallback, useState } from "react";
 
-import { comparePreviousColumnFilters } from "./functions/comparePreviousColumnFilters";
 import { returnColsWithValuesAndType } from "./functions/returnColsWithValuesAndType";
 import { buildRelevantColumnFilters } from "./functions/buildRelevantColumnFilters";
 import { AppContext } from "./contexts/AppContext";
