@@ -288,5 +288,5 @@ body {
 }
 
 .hide-dropdown-toggle::after {
-  display: none;
+  border: none;
 }

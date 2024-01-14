@@ -1,6 +1,5 @@
 import {
   DropdownButton,
-  DropdownToggle,
   ListGroupItem,
   DropdownMenu,
   ListGroup,
@@ -30,10 +29,7 @@ const App = () => {
               className="w-100 shadow-sm"
               variant="light"
             >
-              <DropdownToggle>Data</DropdownToggle>
-              <small className="d-block text-body-secondary">
-                {fileNames.find(({ id }) => id === fileName).displayName}
-              </small>
+              Data
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
@@ -57,17 +53,31 @@ const App = () => {
             </DropdownMenu>
           </Dropdown>
         </div>
+        {/* <ListGroup className="shadow-sm">
+          {fileNames.map(({ displayName, id }) => (
+            <ListGroupItem
+              checked={id === fileName}
+              onChange={onFileChange}
+              type="radio"
+              name="file"
+              value={id}
+              key={id}
+            >
+              {displayName}
+            </ListGroupItem>
+          ))}
+        </ListGroup> */}
         <div className="d-flex flex-wrap gap-3">
           {Object.entries(columnFilters).map(
             ([field, { relevant: fieldRelevance, checklist }]) =>
               fieldRelevance && (
                 <Dropdown className="col" key={field}>
                   <DropdownButton
-                    className="w-100 shadow-sm d-flex align-items-center justify-content-center"
                     data-bs-auto-close="outside"
+                    className="w-100 shadow-sm"
                     variant="light"
                   >
-                    <DropdownToggle>{toTitleCase(field)}</DropdownToggle>
+                    {toTitleCase(field)}
                   </DropdownButton>
                   <DropdownMenu
                     className="shadow-sm overflow-y-scroll"

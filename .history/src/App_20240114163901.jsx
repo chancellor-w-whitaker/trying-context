@@ -67,7 +67,7 @@ const App = () => {
                     data-bs-auto-close="outside"
                     variant="light"
                   >
-                    <DropdownToggle>{toTitleCase(field)}</DropdownToggle>
+                    {toTitleCase(field)}
                   </DropdownButton>
                   <DropdownMenu
                     className="shadow-sm overflow-y-scroll"

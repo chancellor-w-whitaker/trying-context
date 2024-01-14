@@ -3,7 +3,6 @@ import { startTransition, useCallback, useState, useMemo } from "react";
 import { comparePreviousColumnFilters } from "./functions/comparePreviousColumnFilters";
 import { returnColsWithValuesAndType } from "./functions/returnColsWithValuesAndType";
 import { buildRelevantColumnFilters } from "./functions/buildRelevantColumnFilters";
-import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
 import { AppContext } from "./contexts/AppContext";
 import { fileNames } from "./constants/fileNames";
 import { useJSON } from "./hooks/useJSON";
@@ -77,11 +76,11 @@ const useProvideGlobally = () => {
 
   const data = useJSON(`data/${fileName}.json`, onBeforeEnd);
 
-  const dropdownMenuStyle = useMemo(() => ({ maxHeight: 300 }), []);
+  const listGroupStyle = useMemo(() => ({ maxHeight: 300 }), []);
 
   return {
     onColumnFilterChange,
-    dropdownMenuStyle,
+    listGroupStyle,
     columnFilters,
     onFileChange,
     fileName,

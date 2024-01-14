@@ -13,7 +13,7 @@ export const DropdownButton = memo(
     return (
       <>
         <button
-          className={`btn btn-${variant} hide-dropdown-toggle dropdown-toggle ${className}`.trimEnd()}
+          className={`btn btn-${variant} dropdown-toggle ${className}`.trimEnd()}
           {...rest}
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -25,17 +25,6 @@ export const DropdownButton = memo(
 );
 
 DropdownButton.displayName = "DropdownButton";
-
-export const DropdownToggle = ({ className = "", ...rest }) => {
-  return (
-    <>
-      <span
-        className={`dropdown-toggle d-inline-flex align-items-center ${className}`.trimEnd()}
-        {...rest}
-      ></span>
-    </>
-  );
-};
 
 export const DropdownMenu = ({ className = "", ...rest }) => {
   return (

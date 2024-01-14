@@ -1,6 +1,5 @@
 import {
   DropdownButton,
-  DropdownToggle,
   ListGroupItem,
   DropdownMenu,
   ListGroup,
@@ -30,10 +29,7 @@ const App = () => {
               className="w-100 shadow-sm"
               variant="light"
             >
-              <DropdownToggle>Data</DropdownToggle>
-              <small className="d-block text-body-secondary">
-                {fileNames.find(({ id }) => id === fileName).displayName}
-              </small>
+              Data
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
@@ -67,7 +63,12 @@ const App = () => {
                     data-bs-auto-close="outside"
                     variant="light"
                   >
-                    <DropdownToggle>{toTitleCase(field)}</DropdownToggle>
+                    <div>
+                      {toTitleCase(field)}
+                      <small className="d-block text-body-secondary">
+                        With support text underneath to add more detail
+                      </small>
+                    </div>
                   </DropdownButton>
                   <DropdownMenu
                     className="shadow-sm overflow-y-scroll"

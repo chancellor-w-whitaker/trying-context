@@ -1,6 +1,5 @@
 import {
   DropdownButton,
-  DropdownToggle,
   ListGroupItem,
   DropdownMenu,
   ListGroup,
@@ -23,51 +22,46 @@ const App = () => {
   return (
     <>
       <div className="d-flex flex-column gap-4">
-        <div className="d-flex flex-wrap gap-3">
-          <Dropdown className="col">
-            <DropdownButton
-              data-bs-auto-close="outside"
-              className="w-100 shadow-sm"
-              variant="light"
+        <Dropdown>
+          <DropdownButton
+            data-bs-auto-close="outside"
+            className="w-100 shadow-sm"
+            variant="light"
+          >
+            Data
+          </DropdownButton>
+          <DropdownMenu
+            className="shadow-sm overflow-y-scroll"
+            style={dropdownMenuStyle}
+          >
+            <ListGroup></ListGroup>
+          </DropdownMenu>
+        </Dropdown>
+        {/* <ListGroup className="shadow-sm">
+          {fileNames.map(({ displayName, id }) => (
+            <ListGroupItem
+              checked={id === fileName}
+              onChange={onFileChange}
+              type="radio"
+              name="file"
+              value={id}
+              key={id}
             >
-              <DropdownToggle>Data</DropdownToggle>
-              <small className="d-block text-body-secondary">
-                {fileNames.find(({ id }) => id === fileName).displayName}
-              </small>
-            </DropdownButton>
-            <DropdownMenu
-              className="shadow-sm overflow-y-scroll"
-              style={dropdownMenuStyle}
-            >
-              <ListGroup className="list-group-flush">
-                {fileNames.map(({ displayName, id }) => (
-                  <ListGroupItem
-                    checked={id === fileName}
-                    onChange={onFileChange}
-                    className="border-0"
-                    type="radio"
-                    name="file"
-                    value={id}
-                    key={id}
-                  >
-                    {displayName}
-                  </ListGroupItem>
-                ))}
-              </ListGroup>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
+              {displayName}
+            </ListGroupItem>
+          ))}
+        </ListGroup> */}
         <div className="d-flex flex-wrap gap-3">
           {Object.entries(columnFilters).map(
             ([field, { relevant: fieldRelevance, checklist }]) =>
               fieldRelevance && (
                 <Dropdown className="col" key={field}>
                   <DropdownButton
-                    className="w-100 shadow-sm d-flex align-items-center justify-content-center"
                     data-bs-auto-close="outside"
+                    className="w-100 shadow-sm"
                     variant="light"
                   >
-                    <DropdownToggle>{toTitleCase(field)}</DropdownToggle>
+                    {toTitleCase(field)}
                   </DropdownButton>
                   <DropdownMenu
                     className="shadow-sm overflow-y-scroll"

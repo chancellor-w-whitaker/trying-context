@@ -26,11 +26,11 @@ export const DropdownButton = memo(
 
 DropdownButton.displayName = "DropdownButton";
 
-export const DropdownToggle = ({ className = "", ...rest }) => {
+const DropdownToggle = ({ className = "", ...rest }) => {
   return (
     <>
       <span
-        className={`dropdown-toggle d-inline-flex align-items-center ${className}`.trimEnd()}
+        className={`dropdown-toggle d-flex align-items-center justify-content-center ${className}`.trimEnd()}
         {...rest}
       ></span>
     </>

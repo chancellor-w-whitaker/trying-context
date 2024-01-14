@@ -77,11 +77,11 @@ const useProvideGlobally = () => {
 
   const data = useJSON(`data/${fileName}.json`, onBeforeEnd);
 
-  const dropdownMenuStyle = useMemo(() => ({ maxHeight: 300 }), []);
+  const listGroupStyle = useMemo(() => ({ maxHeight: 300 }), []);
 
   return {
     onColumnFilterChange,
-    dropdownMenuStyle,
+    listGroupStyle,
     columnFilters,
     onFileChange,
     fileName,

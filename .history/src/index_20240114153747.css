@@ -286,7 +286,3 @@
 body {
   overflow-y: scroll;
 }
-
-.hide-dropdown-toggle::after {
-  display: none;
-}

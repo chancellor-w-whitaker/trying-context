@@ -31,7 +31,7 @@ const App = () => {
               variant="light"
             >
               <DropdownToggle>Data</DropdownToggle>
-              <small className="d-block text-body-secondary">
+              <small className="text-body-secondary">
                 {fileNames.find(({ id }) => id === fileName).displayName}
               </small>
             </DropdownButton>
@@ -67,7 +67,7 @@ const App = () => {
                     data-bs-auto-close="outside"
                     variant="light"
                   >
-                    <DropdownToggle>{toTitleCase(field)}</DropdownToggle>
+                    {toTitleCase(field)}
                   </DropdownButton>
                   <DropdownMenu
                     className="shadow-sm overflow-y-scroll"
