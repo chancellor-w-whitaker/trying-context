@@ -61,10 +61,7 @@ const useProvideGlobally = () => {
   // need all & all relevant buttons
   // need to set up filtered data calculation
   // need to set up filtered data relevance calculation (in dropdown close event handler or dropdown open event handler?)
-  // do you want to virtualize dropdown lists?
-  // get pivot data
-  // render in recharts & ag grid
-  // remember what chad described about handling the retention rates and/or graduation rates data (found somewhere in pivot-table notes)
+  //
   const onBeforeEnd = useCallback((json, setResult) => {
     const columns = returnColsWithValuesAndType(json);
 
