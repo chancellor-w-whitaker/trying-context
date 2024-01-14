@@ -65,7 +65,7 @@ const App = () => {
               className="w-100 shadow-sm"
               variant="light"
             >
-              <DropdownToggle>Regression Type</DropdownToggle>
+              <DropdownToggle>Data</DropdownToggle>
               <small className="d-block text-body-secondary">
                 {regressionType}
               </small>
@@ -75,17 +75,17 @@ const App = () => {
               style={dropdownMenuStyle}
             >
               <ListGroup className="list-group-flush">
-                {regressionTypes.map((thisRegType) => (
+                {regressionTypes.map((thisRegressionType) => (
                   <ListGroupItem
-                    checked={thisRegType === regressionType}
+                    checked={thisRegressionType === regressionType}
                     onChange={onRegressionTypeChange}
+                    value={thisRegressionType}
+                    key={thisRegressionType}
                     className="border-0"
-                    value={thisRegType}
-                    key={thisRegType}
                     name="regression"
                     type="radio"
                   >
-                    {thisRegType}
+                    {thisRegressionType}
                   </ListGroupItem>
                 ))}
               </ListGroup>

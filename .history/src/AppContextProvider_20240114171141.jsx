@@ -57,10 +57,9 @@ const useProvideGlobally = () => {
   // should they be saved in same object?
   // regression type isn't concerned with relevance (its options won't change), so store it separately
   // sum up & group by options will change, but the differences will be simpler to find (than the differences between old & new col filters)
-  // may be simpler to just make sum up & group by two different state variables
   // need all & all relevant buttons
   // need to set up filtered data calculation
-  // need to set up filtered data relevance calculation (in dropdown close event handler or dropdown open event handler?)
+  // need to set up
   const onBeforeEnd = useCallback((json, setResult) => {
     const columns = returnColsWithValuesAndType(json);
 

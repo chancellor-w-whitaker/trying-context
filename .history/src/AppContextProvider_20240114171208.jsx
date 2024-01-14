@@ -60,7 +60,7 @@ const useProvideGlobally = () => {
   // may be simpler to just make sum up & group by two different state variables
   // need all & all relevant buttons
   // need to set up filtered data calculation
-  // need to set up filtered data relevance calculation (in dropdown close event handler or dropdown open event handler?)
+  // need to set up
   const onBeforeEnd = useCallback((json, setResult) => {
     const columns = returnColsWithValuesAndType(json);
 

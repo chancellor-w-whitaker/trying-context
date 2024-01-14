@@ -6,7 +6,6 @@ import {
   ListGroup,
   Dropdown,
 } from "./components/ListComps";
-import { regressionTypes } from "./constants/regressionTypes";
 import { useAppContext } from "./hooks/useAppContext";
 import { toTitleCase } from "./functions/toTitleCase";
 import { fileNames } from "./constants/fileNames";
@@ -54,38 +53,6 @@ const App = () => {
                     key={id}
                   >
                     {displayName}
-                  </ListGroupItem>
-                ))}
-              </ListGroup>
-            </DropdownMenu>
-          </Dropdown>
-          <Dropdown className="col">
-            <DropdownButton
-              data-bs-auto-close="outside"
-              className="w-100 shadow-sm"
-              variant="light"
-            >
-              <DropdownToggle>Regression Type</DropdownToggle>
-              <small className="d-block text-body-secondary">
-                {regressionType}
-              </small>
-            </DropdownButton>
-            <DropdownMenu
-              className="shadow-sm overflow-y-scroll"
-              style={dropdownMenuStyle}
-            >
-              <ListGroup className="list-group-flush">
-                {regressionTypes.map((thisRegType) => (
-                  <ListGroupItem
-                    checked={thisRegType === regressionType}
-                    onChange={onRegressionTypeChange}
-                    className="border-0"
-                    value={thisRegType}
-                    key={thisRegType}
-                    name="regression"
-                    type="radio"
-                  >
-                    {thisRegType}
                   </ListGroupItem>
                 ))}
               </ListGroup>

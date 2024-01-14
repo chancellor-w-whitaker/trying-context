@@ -3,7 +3,6 @@ import { startTransition, useCallback, useState, useMemo } from "react";
 import { comparePreviousColumnFilters } from "./functions/comparePreviousColumnFilters";
 import { returnColsWithValuesAndType } from "./functions/returnColsWithValuesAndType";
 import { buildRelevantColumnFilters } from "./functions/buildRelevantColumnFilters";
-import { regressionTypes } from "./constants/regressionTypes";
 import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
 import { AppContext } from "./contexts/AppContext";
 import { fileNames } from "./constants/fileNames";
@@ -19,17 +18,11 @@ const useProvideGlobally = () => {
   useBodyBgVariant("primary-subtle");
 
   const [fileName, setFileName] = useState(fileNames[0].id);
-  const [regressionType, setRegressionType] = useState(regressionTypes[0]);
   const [columnFilters, setColumnFilters] = useState({});
 
-  const onFileNameChange = useCallback(
+  const onFileChange = useCallback(
     ({ target: { value } }) => startTransition(() => setFileName(value)),
-    []
-  );
-
-  const onRegressionTypeChange = useCallback(
-    ({ target: { value } }) => startTransition(() => setRegressionType(value)),
-    []
+    [setFileName]
   );
 
   const onColumnFilterChange = useCallback(
@@ -53,21 +46,13 @@ const useProvideGlobally = () => {
     []
   );
 
-  // how should sum up (checklist), group by (checklist), & regression type (radio list) be saved in state?
-  // should they be saved in same object?
-  // regression type isn't concerned with relevance (its options won't change), so store it separately
-  // sum up & group by options will change, but the differences will be simpler to find (than the differences between old & new col filters)
-  // may be simpler to just make sum up & group by two different state variables
-  // need all & all relevant buttons
-  // need to set up filtered data calculation
-  // need to set up filtered data relevance calculation (in dropdown close event handler or dropdown open event handler?)
   const onBeforeEnd = useCallback((json, setResult) => {
     const columns = returnColsWithValuesAndType(json);
 
     const textColumns = columns.filter(({ type }) => type === "string");
 
     setColumnFilters((previousColumnFilters) => {
-      const relevantColumnFilters = buildRelevantColumnFilters(textColumns);
+      const relevantColumnFilters = buildRelevantColumnFilters(columns);
 
       comparePreviousColumnFilters(
         previousColumnFilters,
@@ -97,12 +82,10 @@ const useProvideGlobally = () => {
   const dropdownMenuStyle = useMemo(() => ({ maxHeight: 300 }), []);
 
   return {
-    onRegressionTypeChange,
     onColumnFilterChange,
     dropdownMenuStyle,
-    onFileNameChange,
-    regressionType,
     columnFilters,
+    onFileChange,
     fileName,
     data,
   };

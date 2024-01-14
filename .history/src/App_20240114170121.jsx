@@ -65,7 +65,7 @@ const App = () => {
               className="w-100 shadow-sm"
               variant="light"
             >
-              <DropdownToggle>Regression Type</DropdownToggle>
+              <DropdownToggle>Data</DropdownToggle>
               <small className="d-block text-body-secondary">
                 {regressionType}
               </small>
