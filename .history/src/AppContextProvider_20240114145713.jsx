@@ -14,7 +14,7 @@ export const AppContextProvider = ({ children }) => {
 };
 
 const useProvideGlobally = () => {
-  const [fileName, setFileName] = useState(fileNames[0].id);
+  const [fileName, setFileName] = useState(fileNames[0]);
   const [columnFilters, setColumnFilters] = useState({});
 
   const onFileChange = useCallback(
@@ -24,22 +24,20 @@ const useProvideGlobally = () => {
 
   const onColumnFilterChange = useCallback(
     ({ target: { name: field, value } }) =>
-      startTransition(() =>
-        setColumnFilters((previousState) => {
-          // destructure top object (looks like { field1: {}, field2: {}, ... })
-          const nextState = { ...previousState };
-          // destructure field object (looks like { checklist: {}, relevant })
-          nextState[field] = { ...nextState[field] };
-          // destructure checklist (looks like { value1: {}, value2: {}, ... })
-          nextState[field].checklist = { ...nextState[field].checklist };
+      setColumnFilters((previousState) => {
+        // destructure top object (looks like { field1: {}, field2: {}, ... })
+        const nextState = { ...previousState };
+        // destructure field object (looks like { checklist: {}, relevant })
+        nextState[field] = { ...nextState[field] };
+        // destructure checklist (looks like { value1: {}, value2: {}, ... })
+        nextState[field].checklist = { ...nextState[field].checklist };
 
-          const { relevant, checked } = nextState[field].checklist[value];
-          // create new object for value and flip checked state
-          nextState[field].checklist[value] = { checked: !checked, relevant };
+        const { relevant, checked } = nextState[field].checklist[value];
+        // create new object for value and flip checked state
+        nextState[field].checklist[value] = { checked: !checked, relevant };
 
-          return nextState;
-        })
-      ),
+        return nextState;
+      }),
     []
   );
 
@@ -74,11 +72,11 @@ const useProvideGlobally = () => {
 
   const data = useJSON(`data/${fileName}.json`, onBeforeEnd);
 
-  const listGroupStyle = useMemo(() => ({ maxHeight: 300 }), []);
+  const ListGroupStyle = useMemo(() => ({ maxHeight: 300 }), []);
 
   return {
     onColumnFilterChange,
-    listGroupStyle,
+    ListGroupStyle,
     columnFilters,
     onFileChange,
     fileName,

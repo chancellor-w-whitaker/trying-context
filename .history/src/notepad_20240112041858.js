@@ -13,8 +13,6 @@
   can next determine how to render checkboxes and not relevant state and number of options selected
     - do we want to handle non-relevance when it comes to the filtered data too?
     
-  also need all (& maybe `all relevant`) buttons in dropdowns
-    
   also need to record state of measures to sum up, fields to group by, & regression type
   
   also need to have pivot field defined somewhere for each data file

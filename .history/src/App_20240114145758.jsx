@@ -28,16 +28,16 @@ const App = () => {
       <Container>
         <div className="d-flex flex-column gap-4">
           <ListGroup className="shadow-sm">
-            {fileNames.map(({ displayName, id }) => (
+            {fileNames.map((thisFileName) => (
               <ListGroupItem
-                checked={id === fileName}
+                checked={thisFileName === fileName}
                 onChange={onFileChange}
+                value={thisFileName}
+                key={thisFileName}
                 type="radio"
                 name="file"
-                value={id}
-                key={id}
               >
-                {displayName}
+                {thisFileName}
               </ListGroupItem>
             ))}
           </ListGroup>
@@ -45,7 +45,7 @@ const App = () => {
             {Object.entries(columnFilters).map(
               ([field, { relevant: fieldRelevance, checklist }]) =>
                 fieldRelevance && (
-                  <Dropdown className="col" key={field}>
+                  <Dropdown className="col text-nowrap" key={field}>
                     <DropdownButton
                       className={`w-100 shadow-sm${
                         fieldRelevance ? "" : " opacity-50"

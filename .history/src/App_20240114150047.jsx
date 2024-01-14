@@ -28,16 +28,16 @@ const App = () => {
       <Container>
         <div className="d-flex flex-column gap-4">
           <ListGroup className="shadow-sm">
-            {fileNames.map(({ displayName, id }) => (
+            {fileNames.map((thisFileName) => (
               <ListGroupItem
-                checked={id === fileName}
+                checked={thisFileName === fileName}
                 onChange={onFileChange}
+                value={thisFileName}
+                key={thisFileName}
                 type="radio"
                 name="file"
-                value={id}
-                key={id}
               >
-                {displayName}
+                {thisFileName}
               </ListGroupItem>
             ))}
           </ListGroup>
@@ -55,7 +55,7 @@ const App = () => {
                     >
                       {toTitleCase(field)}
                     </DropdownButton>
-                    <DropdownMenu className="py-0 border-0">
+                    <DropdownMenu className="py-0 border-0 w-100">
                       <ListGroup
                         className="border shadow-sm overflow-y-scroll"
                         style={listGroupStyle}

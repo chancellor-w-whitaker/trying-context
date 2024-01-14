@@ -28,16 +28,16 @@ const App = () => {
       <Container>
         <div className="d-flex flex-column gap-4">
           <ListGroup className="shadow-sm">
-            {fileNames.map(({ displayName, id }) => (
+            {fileNames.map((thisFileName) => (
               <ListGroupItem
-                checked={id === fileName}
+                checked={thisFileName === fileName}
                 onChange={onFileChange}
+                value={thisFileName}
+                key={thisFileName}
                 type="radio"
                 name="file"
-                value={id}
-                key={id}
               >
-                {displayName}
+                {thisFileName}
               </ListGroupItem>
             ))}
           </ListGroup>
