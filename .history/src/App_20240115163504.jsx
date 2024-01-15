@@ -141,19 +141,21 @@ const App = () => {
               style={dropdownMenuStyle}
             >
               <ListGroup className="list-group-flush">
-                {Object.entries(sumUp).map(([field, { relevant, checked }]) => (
-                  <ListGroupItem
-                    className={`border-0${!relevant ? " opacity-50" : ""}`}
-                    onChange={onSumUpChange}
-                    checked={checked}
-                    type="checkbox"
-                    name="group by"
-                    value={field}
-                    key={field}
-                  >
-                    {toTitleCase(field)}
-                  </ListGroupItem>
-                ))}
+                {Object.entries(groupBy).map(
+                  ([field, { relevant, checked }]) => (
+                    <ListGroupItem
+                      className={`border-0${!relevant ? " opacity-50" : ""}`}
+                      onChange={onGroupByChange}
+                      checked={checked}
+                      type="checkbox"
+                      name="group by"
+                      value={field}
+                      key={field}
+                    >
+                      {toTitleCase(field)}
+                    </ListGroupItem>
+                  )
+                )}
               </ListGroup>
             </DropdownMenu>
           </Dropdown>

@@ -3,7 +3,6 @@ import { startTransition, useCallback, useState, useMemo } from "react";
 import { comparePreviousColumnFilters } from "./functions/comparePreviousColumnFilters";
 import { returnColsWithValuesAndType } from "./functions/returnColsWithValuesAndType";
 import { buildRelevantColumnFilters } from "./functions/buildRelevantColumnFilters";
-import { updateColSelectorListValue } from "./functions/updateColSelectorListValue";
 import { updateColSelectorListData } from "./functions/updateColSelectorListData";
 import { regressionTypes } from "./constants/regressionTypes";
 import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
@@ -15,6 +14,14 @@ export const AppContextProvider = ({ children }) => {
   const value = useProvideGlobally();
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
+
+const updateColSelectorListValue = (value, previousState) => {
+  const nextState = { ...previousState };
+  const { relevant, checked } = nextState[value];
+  nextState[value] = { checked: !checked, relevant };
+
+  return nextState;
 };
 
 const useProvideGlobally = () => {

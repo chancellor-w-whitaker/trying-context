@@ -3,8 +3,6 @@ import { startTransition, useCallback, useState, useMemo } from "react";
 import { comparePreviousColumnFilters } from "./functions/comparePreviousColumnFilters";
 import { returnColsWithValuesAndType } from "./functions/returnColsWithValuesAndType";
 import { buildRelevantColumnFilters } from "./functions/buildRelevantColumnFilters";
-import { updateColSelectorListValue } from "./functions/updateColSelectorListValue";
-import { updateColSelectorListData } from "./functions/updateColSelectorListData";
 import { regressionTypes } from "./constants/regressionTypes";
 import { useBodyBgVariant } from "./hooks/useBodyBgVariant";
 import { AppContext } from "./contexts/AppContext";
@@ -15,6 +13,30 @@ export const AppContextProvider = ({ children }) => {
   const value = useProvideGlobally();
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+};
+
+const updateColSelectorListData = (columnsArray, previousList) => {
+  const relevantList = Object.fromEntries(
+    columnsArray.map(({ field }) => [field, { checked: false, relevant: true }])
+  );
+
+  Object.entries(previousList).forEach(([field, { checked }]) => {
+    if (field in relevantList) {
+      relevantList[field].checked = checked;
+    } else {
+      relevantList[field] = { relevant: false, checked };
+    }
+  });
+
+  return relevantList;
+};
+
+const updateColSelectorListValue = (value, previousState) => {
+  const nextState = { ...previousState };
+  const { relevant, checked } = nextState[value];
+  nextState[value] = { checked: !checked, relevant };
+
+  return nextState;
 };
 
 const useProvideGlobally = () => {

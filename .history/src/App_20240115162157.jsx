@@ -21,10 +21,8 @@ const App = () => {
     onGroupByChange,
     regressionType,
     columnFilters,
-    onSumUpChange,
     fileName,
     groupBy,
-    sumUp,
   } = useAppContext();
 
   return (
@@ -125,35 +123,6 @@ const App = () => {
                     </ListGroupItem>
                   )
                 )}
-              </ListGroup>
-            </DropdownMenu>
-          </Dropdown>
-          <Dropdown className="col">
-            <DropdownButton
-              className="w-100 shadow-sm d-flex align-items-center justify-content-center"
-              data-bs-auto-close="outside"
-              variant="light"
-            >
-              <DropdownToggle>Sum Up</DropdownToggle>
-            </DropdownButton>
-            <DropdownMenu
-              className="shadow-sm overflow-y-scroll"
-              style={dropdownMenuStyle}
-            >
-              <ListGroup className="list-group-flush">
-                {Object.entries(sumUp).map(([field, { relevant, checked }]) => (
-                  <ListGroupItem
-                    className={`border-0${!relevant ? " opacity-50" : ""}`}
-                    onChange={onSumUpChange}
-                    checked={checked}
-                    type="checkbox"
-                    name="group by"
-                    value={field}
-                    key={field}
-                  >
-                    {toTitleCase(field)}
-                  </ListGroupItem>
-                ))}
               </ListGroup>
             </DropdownMenu>
           </Dropdown>
