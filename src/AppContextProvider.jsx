@@ -86,6 +86,8 @@ const useProvideGlobally = () => {
   // * need to set up filtered data calculation
   // ! don't like fileName being a dependency for onBeforeEnd (does it affect performance or create extra renders to set a dep in a data fetching use effect?)
   // ! is it bad practice to use start transition when setting all state values (including data)?
+  // todo: group by should be ordered
+  // todo: sum up should be a radio selector
   // todo: need to set up filtered data relevance calculation (in dropdown close event handler or dropdown open event handler?)
   // todo: get column defs from group by selections & pivot values (pivot values need data for all relevant sum up selections)
   // todo: create ag grid from column defs & row data (row data being filtered data or pivot data once calculated)
