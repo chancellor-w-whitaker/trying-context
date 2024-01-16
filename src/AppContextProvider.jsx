@@ -24,7 +24,7 @@ const useProvideGlobally = () => {
   const [regressionType, setRegressionType] = useState(regressionTypes[0]);
   const [columnFilters, setColumnFilters] = useState({});
   const [groupBy, setGroupBy] = useState({});
-  const [sumUp, setSumUp] = useState({});
+  const [measure, setMeasure] = useState({});
 
   const onFileNameChange = useCallback(
     ({ target: { value } }) => startTransition(() => setFileName(value)),
@@ -67,14 +67,19 @@ const useProvideGlobally = () => {
     []
   );
 
-  const onSumUpChange = useCallback(
-    ({ target: { value } }) =>
+  const onMeasureChange = useCallback(
+    ({ target: { value } }) => {
       startTransition(() =>
-        setSumUp((previousState) =>
-          updateColSelectorListValue(value, previousState)
-        )
-      ),
-    []
+        setMeasure((previousState) => {
+          const nextState = { ...previousState };
+
+          nextState[fileName] = { ...nextState[fileName], checked: value };
+
+          return nextState;
+        })
+      );
+    },
+    [fileName]
   );
 
   // * how should sum up (checklist), group by (checklist), & regression type (radio list) be saved in state?
@@ -105,6 +110,18 @@ const useProvideGlobally = () => {
 
         const numberColumns = columns.filter(({ type }) => type === "number");
 
+        setMeasure((previousState) => {
+          const nextState = { ...previousState };
+
+          const measures = numberColumns.map(({ field }) => field);
+
+          if (!(fileName in nextState)) {
+            nextState[fileName] = { checked: measures[0], options: measures };
+          }
+
+          return nextState;
+        });
+
         setGroupBy((previousGroupBy) =>
           updateColSelectorListData(
             textColumns.filter(
@@ -114,10 +131,6 @@ const useProvideGlobally = () => {
             ),
             previousGroupBy
           )
-        );
-
-        setSumUp((previousSumUp) =>
-          updateColSelectorListData(numberColumns, previousSumUp)
         );
 
         setColumnFilters((previousColumnFilters) => {
@@ -169,6 +182,11 @@ const useProvideGlobally = () => {
   const dropdownMenuStyle = useMemo(() => ({ maxHeight: 300 }), []);
 
   return {
+    measure: {
+      current: measure[fileName]?.checked,
+      options: measure[fileName]?.options,
+      onChange: onMeasureChange,
+    },
     regressionType: {
       onChange: onRegressionTypeChange,
       current: regressionType,
@@ -176,7 +194,6 @@ const useProvideGlobally = () => {
     columnFilters: { onChange: onColumnFilterChange, current: columnFilters },
     fileName: { onChange: onFileNameChange, current: fileName },
     groupBy: { onChange: onGroupByChange, current: groupBy },
-    sumUp: { onChange: onSumUpChange, current: sumUp },
     data: { filtered: filteredData, current: data },
     dropdownMenu: { style: dropdownMenuStyle },
   };

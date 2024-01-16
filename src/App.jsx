@@ -19,7 +19,7 @@ const App = () => {
     dropdownMenu,
     fileName,
     groupBy,
-    sumUp,
+    measure,
   } = useAppContext();
 
   return (
@@ -67,9 +67,10 @@ const App = () => {
               className="w-100 shadow-sm"
               variant="light"
             >
-              <DropdownToggle>Regression Type</DropdownToggle>
+              <DropdownToggle>Measure</DropdownToggle>
+
               <small className="d-block text-body-secondary">
-                {regressionType.current}
+                {measure.current ? toTitleCase(measure.current) : "..."}
               </small>
             </DropdownButton>
             <DropdownMenu
@@ -77,31 +78,32 @@ const App = () => {
               style={dropdownMenu.style}
             >
               <ListGroup className="list-group-flush">
-                {regressionTypes.map((thisRegType) => (
+                {measure.options?.map((option) => (
                   <ListGroupItem
-                    checked={thisRegType === regressionType.current}
-                    onChange={regressionType.onChange}
+                    checked={option === measure.current}
+                    onChange={measure.onChange}
                     className="border-0"
-                    value={thisRegType}
-                    key={thisRegType}
-                    name="regression"
+                    value={option}
+                    name="measure"
+                    key={option}
                     type="radio"
                   >
-                    {thisRegType}
+                    {toTitleCase(option)}
                   </ListGroupItem>
                 ))}
               </ListGroup>
             </DropdownMenu>
           </Dropdown>
-        </div>
-        <div className="d-flex flex-wrap gap-3">
           <Dropdown className="col">
             <DropdownButton
-              className="w-100 shadow-sm d-flex align-items-center justify-content-center"
               data-bs-auto-close="outside"
+              className="w-100 shadow-sm"
               variant="light"
             >
               <DropdownToggle>Group By</DropdownToggle>
+              <small className="d-block text-body-secondary opacity-0">
+                Placeholder
+              </small>
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
@@ -128,32 +130,33 @@ const App = () => {
           </Dropdown>
           <Dropdown className="col">
             <DropdownButton
-              className="w-100 shadow-sm d-flex align-items-center justify-content-center"
               data-bs-auto-close="outside"
+              className="w-100 shadow-sm"
               variant="light"
             >
-              <DropdownToggle>Sum Up</DropdownToggle>
+              <DropdownToggle>Regression Type</DropdownToggle>
+              <small className="d-block text-body-secondary">
+                {regressionType.current}
+              </small>
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
               style={dropdownMenu.style}
             >
               <ListGroup className="list-group-flush">
-                {Object.entries(sumUp.current).map(
-                  ([field, { relevant, checked }]) => (
-                    <ListGroupItem
-                      className={`border-0${!relevant ? " opacity-50" : ""}`}
-                      onChange={sumUp.onChange}
-                      checked={checked}
-                      type="checkbox"
-                      name="group by"
-                      value={field}
-                      key={field}
-                    >
-                      {toTitleCase(field)}
-                    </ListGroupItem>
-                  )
-                )}
+                {regressionTypes.map((option) => (
+                  <ListGroupItem
+                    checked={option === regressionType.current}
+                    onChange={regressionType.onChange}
+                    className="border-0"
+                    name="regression"
+                    value={option}
+                    key={option}
+                    type="radio"
+                  >
+                    {option}
+                  </ListGroupItem>
+                ))}
               </ListGroup>
             </DropdownMenu>
           </Dropdown>
@@ -164,8 +167,8 @@ const App = () => {
               fieldRelevance && (
                 <Dropdown className="col" key={field}>
                   <DropdownButton
-                    className="w-100 shadow-sm d-flex align-items-center justify-content-center"
                     data-bs-auto-close="outside"
+                    className="w-100 shadow-sm"
                     variant="light"
                   >
                     <DropdownToggle>{toTitleCase(field)}</DropdownToggle>
