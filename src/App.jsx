@@ -14,14 +14,9 @@ import "./App.css";
 
 const App = () => {
   const {
-    onRegressionTypeChange,
-    onColumnFilterChange,
-    dropdownMenuStyle,
-    onFileNameChange,
-    onGroupByChange,
     regressionType,
     columnFilters,
-    onSumUpChange,
+    dropdownMenu,
     fileName,
     groupBy,
     sumUp,
@@ -39,18 +34,21 @@ const App = () => {
             >
               <DropdownToggle>Data</DropdownToggle>
               <small className="d-block text-body-secondary">
-                {fileNames.find(({ id }) => id === fileName).displayName}
+                {
+                  fileNames.find(({ id }) => id === fileName.current)
+                    .displayName
+                }
               </small>
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
-              style={dropdownMenuStyle}
+              style={dropdownMenu.style}
             >
               <ListGroup className="list-group-flush">
                 {fileNames.map(({ displayName, id }) => (
                   <ListGroupItem
-                    onChange={onFileNameChange}
-                    checked={id === fileName}
+                    checked={id === fileName.current}
+                    onChange={fileName.onChange}
                     className="border-0"
                     type="radio"
                     name="file"
@@ -71,18 +69,18 @@ const App = () => {
             >
               <DropdownToggle>Regression Type</DropdownToggle>
               <small className="d-block text-body-secondary">
-                {regressionType}
+                {regressionType.current}
               </small>
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
-              style={dropdownMenuStyle}
+              style={dropdownMenu.style}
             >
               <ListGroup className="list-group-flush">
                 {regressionTypes.map((thisRegType) => (
                   <ListGroupItem
-                    checked={thisRegType === regressionType}
-                    onChange={onRegressionTypeChange}
+                    checked={thisRegType === regressionType.current}
+                    onChange={regressionType.onChange}
                     className="border-0"
                     value={thisRegType}
                     key={thisRegType}
@@ -107,14 +105,14 @@ const App = () => {
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
-              style={dropdownMenuStyle}
+              style={dropdownMenu.style}
             >
               <ListGroup className="list-group-flush">
-                {Object.entries(groupBy).map(
+                {Object.entries(groupBy.current).map(
                   ([field, { relevant, checked }]) => (
                     <ListGroupItem
                       className={`border-0${!relevant ? " opacity-50" : ""}`}
-                      onChange={onGroupByChange}
+                      onChange={groupBy.onChange}
                       checked={checked}
                       type="checkbox"
                       name="group by"
@@ -138,28 +136,30 @@ const App = () => {
             </DropdownButton>
             <DropdownMenu
               className="shadow-sm overflow-y-scroll"
-              style={dropdownMenuStyle}
+              style={dropdownMenu.style}
             >
               <ListGroup className="list-group-flush">
-                {Object.entries(sumUp).map(([field, { relevant, checked }]) => (
-                  <ListGroupItem
-                    className={`border-0${!relevant ? " opacity-50" : ""}`}
-                    onChange={onSumUpChange}
-                    checked={checked}
-                    type="checkbox"
-                    name="group by"
-                    value={field}
-                    key={field}
-                  >
-                    {toTitleCase(field)}
-                  </ListGroupItem>
-                ))}
+                {Object.entries(sumUp.current).map(
+                  ([field, { relevant, checked }]) => (
+                    <ListGroupItem
+                      className={`border-0${!relevant ? " opacity-50" : ""}`}
+                      onChange={sumUp.onChange}
+                      checked={checked}
+                      type="checkbox"
+                      name="group by"
+                      value={field}
+                      key={field}
+                    >
+                      {toTitleCase(field)}
+                    </ListGroupItem>
+                  )
+                )}
               </ListGroup>
             </DropdownMenu>
           </Dropdown>
         </div>
         <div className="d-flex flex-wrap gap-3">
-          {Object.entries(columnFilters).map(
+          {Object.entries(columnFilters.current).map(
             ([field, { relevant: fieldRelevance, checklist }]) =>
               fieldRelevance && (
                 <Dropdown className="col" key={field}>
@@ -172,7 +172,7 @@ const App = () => {
                   </DropdownButton>
                   <DropdownMenu
                     className="shadow-sm overflow-y-scroll"
-                    style={dropdownMenuStyle}
+                    style={dropdownMenu.style}
                   >
                     <ListGroup className="list-group-flush">
                       {Object.entries(checklist).map(
@@ -181,7 +181,7 @@ const App = () => {
                             className={`border-0${
                               !valueRelevance ? " opacity-50" : ""
                             }`}
-                            onChange={onColumnFilterChange}
+                            onChange={columnFilters.onChange}
                             checked={checked}
                             type="checkbox"
                             value={value}
