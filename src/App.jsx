@@ -60,40 +60,7 @@ const App = () => {
                 ))}
               </ListGroup>
             </DropdownMenu>
-          </Dropdown>
-          <Dropdown className="col">
-            <DropdownButton
-              data-bs-auto-close="outside"
-              className="w-100 shadow-sm"
-              variant="light"
-            >
-              <DropdownToggle>Measure</DropdownToggle>
-
-              <small className="d-block text-body-secondary">
-                {measure.current ? toTitleCase(measure.current) : "..."}
-              </small>
-            </DropdownButton>
-            <DropdownMenu
-              className="shadow-sm overflow-y-scroll"
-              style={dropdownMenu.style}
-            >
-              <ListGroup className="list-group-flush">
-                {measure.options?.map((option) => (
-                  <ListGroupItem
-                    checked={option === measure.current}
-                    onChange={measure.onChange}
-                    className="border-0"
-                    value={option}
-                    name="measure"
-                    key={option}
-                    type="radio"
-                  >
-                    {toTitleCase(option)}
-                  </ListGroupItem>
-                ))}
-              </ListGroup>
-            </DropdownMenu>
-          </Dropdown>
+          </Dropdown>{" "}
           <Dropdown className="col">
             <DropdownButton
               data-bs-auto-close="outside"
@@ -125,6 +92,44 @@ const App = () => {
                     </ListGroupItem>
                   )
                 )}
+              </ListGroup>
+            </DropdownMenu>
+          </Dropdown>
+          <Dropdown className="col">
+            <DropdownButton
+              data-bs-auto-close="outside"
+              className="w-100 shadow-sm"
+              variant="light"
+            >
+              <DropdownToggle>Measure</DropdownToggle>
+
+              <small
+                className={
+                  "d-block text-body-secondary" +
+                  (!measure.current ? " opacity-0" : "")
+                }
+              >
+                {measure.current ? toTitleCase(measure.current) : "..."}
+              </small>
+            </DropdownButton>
+            <DropdownMenu
+              className="shadow-sm overflow-y-scroll"
+              style={dropdownMenu.style}
+            >
+              <ListGroup className="list-group-flush">
+                {measure.options?.map((option) => (
+                  <ListGroupItem
+                    checked={option === measure.current}
+                    onChange={measure.onChange}
+                    className="border-0"
+                    value={option}
+                    name="measure"
+                    key={option}
+                    type="radio"
+                  >
+                    {toTitleCase(option)}
+                  </ListGroupItem>
+                ))}
               </ListGroup>
             </DropdownMenu>
           </Dropdown>
